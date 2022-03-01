@@ -1,42 +1,103 @@
 @extends('template.master')
 @section('content')
     <!-- breadcrumb -->
+	<!-- breadcrumb -->
 					<div class="breadcrumb-header justify-content-between">
-						<div class="my-auto">
-							<div class="d-flex">
-								<h4 class="content-title mb-0 my-auto">Pages</h4><span class="text-muted mt-1 tx-13 ml-2 mb-0">/ Empty</span>
-							</div>
-						</div>
-						<div class="d-flex my-xl-auto right-content">
-							<div class="pr-1 mb-3 mb-xl-0">
-								<button type="button" class="btn btn-info btn-icon mr-2"><i class="mdi mdi-filter-variant"></i></button>
-							</div>
-							<div class="pr-1 mb-3 mb-xl-0">
-								<button type="button" class="btn btn-danger btn-icon mr-2"><i class="mdi mdi-star"></i></button>
-							</div>
-							<div class="pr-1 mb-3 mb-xl-0">
-								<button type="button" class="btn btn-warning  btn-icon mr-2"><i class="mdi mdi-refresh"></i></button>
-							</div>
-							<div class="mb-3 mb-xl-0">
-								<div class="btn-group dropdown">
-									<button type="button" class="btn btn-primary">14 Aug 2019</button>
-									<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<span class="sr-only">Toggle Dropdown</span>
-									</button>
-									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end">
-										<a class="dropdown-item" href="#">2015</a>
-										<a class="dropdown-item" href="#">2016</a>
-										<a class="dropdown-item" href="#">2017</a>
-										<a class="dropdown-item" href="#">2018</a>
-									</div>
-								</div>
+						<div class="left-content">
+							<div>
+							  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back!</h2>
+							  {{-- <p class="mg-b-0">Sales monitoring dashboard template.</p> --}}
 							</div>
 						</div>
 					</div>
-					<!-- breadcrumb -->
+					<!-- /breadcrumb -->
 
 					<!-- row -->
-					<div class="row">
-
+					<div class="row row-sm">
+						<div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
+							<div class="card overflow-hidden sales-card bg-primary-gradient">
+								<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
+									<div class="">
+										<h6 class="mb-3 tx-12 text-white">Users</h6>
+									</div>
+									<div class="pb-0 mt-0">
+										<div class="d-flex">
+											<div class="">
+												<h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $user }}</h4>
+												<p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+											</div>
+										
+										</div>
+									</div>
+								</div>
+								{{-- <span id="compositeline" class="pt-1">5,9,5,6,4,12,18,14,10,15,12,5,8,5,12,5,12,10,16,12</span> --}}
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
+							<div class="card overflow-hidden sales-card bg-danger-gradient">
+								<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
+									<div class="">
+										<h6 class="mb-3 tx-12 text-white">Role</h6>
+									</div>
+									<div class="pb-0 mt-0">
+										<div class="d-flex">
+											<div class="">
+												<h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $role }}</h4>
+												<p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								{{-- <span id="compositeline2" class="pt-1">3,2,4,6,12,14,8,7,14,16,12,7,8,4,3,2,2,5,6,7</span> --}}
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
+							<div class="card overflow-hidden sales-card bg-success-gradient">
+								<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
+									<div class="">
+										<h6 class="mb-3 tx-12 text-white">TOTAL EARNINGS</h6>
+									</div>
+									<div class="pb-0 mt-0">
+										<div class="d-flex">
+											<div class="">
+												<h4 class="tx-20 font-weight-bold mb-1 text-white">$7,125.70</h4>
+												<p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+											</div>
+											<span class="float-right my-auto ml-auto">
+												<i class="fas fa-arrow-circle-up text-white"></i>
+												<span class="text-white op-7"> 52.09%</span>
+											</span>
+										</div>
+									</div>
+								</div>
+								{{-- <span id="compositeline3" class="pt-1">5,10,5,20,22,12,15,18,20,15,8,12,22,5,10,12,22,15,16,10</span> --}}
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
+							<div class="card overflow-hidden sales-card bg-warning-gradient">
+								<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
+									<div class="">
+										<h6 class="mb-3 tx-12 text-white">PRODUCT SOLD</h6>
+									</div>
+									<div class="pb-0 mt-0">
+										<div class="d-flex">
+											<div class="">
+												<h4 class="tx-20 font-weight-bold mb-1 text-white">$4,820.50</h4>
+												<p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+											</div>
+											<span class="float-right my-auto ml-auto">
+												<i class="fas fa-arrow-circle-down text-white"></i>
+												<span class="text-white op-7"> -152.3</span>
+											</span>
+										</div>
+									</div>
+								</div>
+								{{-- <span id="compositeline4" class="pt-1">5,9,5,6,4,12,18,14,10,15,12,5,8,5,12,5,12,10,16,12</span> --}}
+							</div>
+						</div>
 					</div>
+					<!-- row closed -->
+
+
 @endsection
