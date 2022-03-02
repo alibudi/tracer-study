@@ -1,16 +1,17 @@
 @extends('template.master')
-@section('title', 'Users')
+@section('title', 'Category')
 @section('content')
 
 <!-- breadcrumb -->
 <div class="breadcrumb-header justify-content-between">
     <div class="left-content">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Data Users</h2>
+            <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Data Categories</h2>
             {{-- <p class="mg-b-0">Sales monitoring dashboard template.</p> --}}
+          
         </div>
     </div>
-     <div class="center-content">
+    <div class="center-content">
         <div>
              @if(session('success'))
               <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -41,7 +42,7 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0"> <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm">  <i class="fas fa-plus"> Add Users</i> </a></h4>
+                        <h4 class="card-title mg-b-0"> <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm">  <i class="fas fa-plus"> Add Category</i> </a></h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                     
@@ -53,7 +54,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
-                                    <th>Email</th>
+                                    <th>Slug</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -61,15 +62,15 @@
                                 @php
                                     $no = 1;
                                 @endphp
-                              @foreach ($user as $item)
+                              @foreach ($category as $item)
                                     <tr>
                                     <th scope="row">{{ $no++ }}</th>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->slug }}</td>
                                     <td class="text-center">
-                                    <form action="{{ route('user.destroy',$item->id) }}" method="POST">
+                                    <form action="{{ route('category.destroy',$item->id) }}" method="POST">
                                     {{-- <a class="btn btn-info btn-xs" href=""><div class="fas fa-eye"></div></a>  --}}
-                                        <a class="btn btn-primary btn-xs" href="{{ route('user.edit',$item->id) }}"><i class="fas fa-pen"></i></a> 
+                                        <a class="btn btn-primary btn-xs" href="{{ route('category.edit',$item->id) }}"><i class="fas fa-pen"></i></a> 
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>

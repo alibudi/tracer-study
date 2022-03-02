@@ -41,7 +41,7 @@ class RoleController extends Controller
         ]);
 
         if($role) {
-            return redirect()->route('role.index')->with('success', 'Role has been created');
+            return redirect()->route('role.index')->with('success', 'Success create role');
         } else{
             return redirect()->back()->with('error', 'Failed to create role');
         }

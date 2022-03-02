@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -30,6 +31,7 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::resource('user', UserController::class);
     Route::post('changepassword/{id}',[UserController::class,'changePassword'])->name('user.password');
     Route::resource('role', RoleController::class);
+    Route::resource('category', CategoryController::class);
 });
 
 
