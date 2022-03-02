@@ -11,7 +11,8 @@ class RoleController extends Controller
 {
     public function index()
     {
-        return view('admin.role.index');
+        $roles = Groups::paginate(10);
+        return view('admin.role.index', compact('roles'));
     }
 
     public function create()
@@ -40,7 +41,7 @@ class RoleController extends Controller
         ]);
 
         if($role) {
-            return redirect()->route('admin.role.index')->with('success', 'Role has been created');
+            return redirect()->route('role.index')->with('success', 'Role has been created');
         } else{
             return redirect()->back()->with('error', 'Failed to create role');
         }
@@ -73,19 +74,19 @@ class RoleController extends Controller
         $role->save();
 
         if($role) {
-            return redirect()->route('admin.role.index')->with('success', 'Role has been updated');
+            return redirect()->route('role.index')->with('success', 'Role has been updated');
         } else{
             return redirect()->back()->with('error', 'Failed to update role');
         }
     }
 
-    public function destory($id)
+    public function destroy($id)
     {
         $role = Groups::find($id);
         $role->delete();
 
         if($role) {
-            return redirect()->route('admin.role.index')->with('success', 'Role has been deleted');
+            return redirect()->route('role.index')->with('success', 'Role has been deleted');
         } else{
             return redirect()->back()->with('error', 'Failed to delete role');
         }

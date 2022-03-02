@@ -9,4 +9,6 @@ class Groups extends Model
 {
     use HasFactory;
     protected $table = "groups";
+     protected $primaryKey = 'id';
+    protected $fillable = ['name','created_at','updated_at'];
 }

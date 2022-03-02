@@ -30,7 +30,7 @@
                                     <th>No</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Action</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,7 +42,15 @@
                                     <th scope="row">{{ $no++ }}</th>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td></td>
+                                    <td class="text-center">
+                                    <form action="{{ route('user.destroy',$item->id) }}" method="POST">
+                                    {{-- <a class="btn btn-info btn-xs" href=""><div class="fas fa-eye"></div></a>  --}}
+                                        <a class="btn btn-primary btn-xs" href="{{ route('user.edit',$item->id) }}"><i class="fas fa-pen"></i></a> 
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                    </td>
                                 </tr>
                                
                               @endforeach

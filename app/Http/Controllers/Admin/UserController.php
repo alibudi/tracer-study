@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Groups;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,8 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.user.create');
+        $roles = Groups::all();
+        return view('admin.user.create',compact('roles'));
     }
 
     public function store(Request $request)
@@ -56,7 +58,7 @@ class UserController extends Controller
         $user->role()->sync($request['groups_id']);
 
         if($user) {
-            return redirect()->route('admin.user.index')->with('success', 'User has been created');
+            return redirect()->route('user.index')->with('success', 'User has been created');
         } else{
             return redirect()->back()->with('error', 'Failed to create user');
         }
@@ -77,7 +79,7 @@ class UserController extends Controller
 
         $user->role()->sync($request['groups_id']);
 
-        return redirect()->route('admin.user.index')->with('success', 'User has been updated');
+        return redirect()->route('user.index')->with('success', 'User has been updated');
     }
 
     public function changePassword(Request $request, $id)
@@ -103,7 +105,7 @@ class UserController extends Controller
         if(Hash::check($request->old_password, $old_password)) {
             $account->password = Hash::make($request->password);
             $account->save();
-            return redirect()->route('admin.user.index')->with('success', 'Password has been changed');
+            return redirect()->route('user.index')->with('success', 'Password has been changed');
         } else {
             return redirect()->back()->with('error', 'Password lama tidak sama');
         }

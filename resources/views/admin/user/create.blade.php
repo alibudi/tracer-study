@@ -6,7 +6,7 @@
 <div class="breadcrumb-header justify-content-between">
     <div class="left-content">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back!</h2>
+            <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Create Users</h2>
             {{-- <p class="mg-b-0">Sales monitoring dashboard template.</p> --}}
         </div>
     </div>
@@ -18,32 +18,41 @@
 						<div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
 							<div class="card  box-shadow-0">
 								<div class="card-header">
-									<h4 class="card-title mb-1">Default Form</h4>
-									<p class="mb-2">It is Very Easy to Customize and it uses in your website apllication.</p>
+									{{-- <h4 class="card-title mb-1">Create Users</h4> --}}
+								
 								</div>
 								<div class="card-body pt-0">
-									<form class="form-horizontal" >
+									<form class="form-horizontal" method="POST" action="{{ route('user.store') }}">
+										@csrf
 										<div class="form-group">
-											<input type="text" class="form-control" id="inputName" placeholder="Name">
+											<label for="">Name</label>
+											<input type="text" class="form-control" name="name" id="inputName" placeholder="Name">
 										</div>
 										<div class="form-group">
-											<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+											<label for="">Email</label>
+											<input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email">
+										</div>
+										 <div class="form-group">
+										<label>Pilih Role</label>
+										<select name="group_id" class="form-control">
+											<option value="">--Pilih Role--</option>
+											@foreach ($roles as $item)
+											<option value="{{$item->id}}">{{$item->name}}</option>
+											@endforeach
+										</select>
+									</div>
+										<div class="form-group">
+											<label for="">Password</label>
+											<input type="password" class="form-control" id="inputPassword3" name="password" placeholder="Password">
 										</div>
 										<div class="form-group">
-											<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-										</div>
-										<div class="form-group mb-0 justify-content-end">
-											<div class="checkbox">
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-2">
-													<label for="checkbox-2" class="custom-control-label mt-1">Check me Out</label>
-												</div>
-											</div>
+											<label for="">Confirmation Password</label>
+											<input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password">
 										</div>
 										<div class="form-group mb-0 mt-3 justify-content-end">
 											<div>
-												<button type="submit" class="btn btn-primary">Sign in</button>
-												<button type="submit" class="btn btn-secondary">Cancel</button>
+												<button type="submit" class="btn btn-primary">Save</button>
+												{{-- <button type="submit" class="btn btn-secondary">Cancel</button> --}}
 											</div>
 										</div>
 									</form>

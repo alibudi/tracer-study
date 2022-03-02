@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::get('actionLogout',[AuthController::class,'actionLogout'])->name('actionL
 Route::prefix('admin')->middleware('auth')->group(function (){
     Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
     Route::resource('user', UserController::class);
+    Route::post('changepassword/{id}',[UserController::class,'changePassword'])->name('user.password');
     Route::resource('role', RoleController::class);
 });
 
