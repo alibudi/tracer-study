@@ -8,7 +8,7 @@
         <p>4. edit file env.example menjadi .env</p>
         <p>5. php artisan key:generate</p>
         <p>6. php artisan migrate</p>
-        <p>7. php artisan migrate db--seed</p>
+        <p>7. php artisan migrate --seed</p>
         <p>8. php artisan serve</p>
         <img src="https://github.com/alibudi/starter-lara/blob/main/public/img/dashboardPNG.PNG?raw=true" alt="">
         <br>
