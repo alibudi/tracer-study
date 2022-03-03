@@ -7,7 +7,7 @@
 		<meta name="Description" content="Starter Laravel sederhana">
 		<meta name="Author" content="Alibudi">
 		<meta name="Keywords" content="Starter Laravel"/>
-
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<!-- Title -->
 		<title> @yield('title') </title>
 
@@ -37,7 +37,9 @@
 
 		<!--- Animations css-->
 		<link href="{{ asset('admin/css/animate.css')}}" rel="stylesheet">
-
+		<!--- Internal Sweet-Alert css-->
+		<link href="{{ asset('admin/plugins/sweet-alert/sweetalert.css')}}" rel="stylesheet">
+		@stack('css')
 	</head>
 
 	<body class="main-body app sidebar-mini dark-theme">
@@ -121,9 +123,15 @@
 		<!-- Right-sidebar js -->
 		<script src="{{ asset('admin/plugins/sidebar/sidebar.js')}}"></script>
 		<script src="{{ asset('admin/plugins/sidebar/sidebar-custom.js')}}"></script>
+		<script src="{{ asset('admin/plugins/sweet-alert/sweetalert.min.js')}}"></script>
+		<script src="{{ asset('admin/plugins/sweet-alert/jquery.sweet-alert.js')}}"></script>
 
+		<!-- Sweet-alert js  -->
+		<script src="{{ asset('admin/plugins/sweet-alert/sweetalert.min.js')}}"></script>
+		<script src="{{ asset('admin/js/sweet-alert.js')}}"></script>
 		<!-- custom js -->
 		<script src="{{ asset('admin/js/custom.js')}}"></script>
+		@stack('js')
 
 	</body>
 </html>

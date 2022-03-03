@@ -7,13 +7,30 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $category = Category::paginate(10);
-        return view('admin.category.index', compact('category'));
+       if(request()->ajax())
+       {
+           $category = Category::latest()->get();
+           return datatables()->of($category)
+           ->AddIndexColumn()
+           ->addColumn('action', function($data){
+               $edit = '<a href="'.route('category.edit', $data->id).'" class="btn btn-info btn-sm">Edit</a>';
+                $delete = '<a href="javascript:void(0)" onClick="deleteData('.$data->id.')" class="btn btn-danger btn-sm">Delete</a>
+                <form id="delete-form-'.$data->id.'" action="'.route('category.destroy', $data->id).'" method="POST" style="display: none;">
+                   <input type="hidden" name="_method" value="DELETE">
+                     '.csrf_field().'
+                </form>';
+                return $edit.' '.$delete;
+           })
+           ->rawColumns(['action'])
+           ->make(true);
+       }
+         return view('admin.category.index');
     }
     
     public function create()
@@ -23,29 +40,22 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $rules = [
-            'name' => 'required',
-        ];
+       if ($request->method == 'patch') {
+            $this->update($request, $request->id);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|unique:categories',
+                // 'slug' => 'required|unique:categories',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->errors()], 401);
+            }
+            $category = new Category;
+            $category->name = $request->name;
+            $category->slug = Str::slug($request->name);
+            $category->save();
+          return redirect()->route('category.index')->with('success', 'Category added successfully');
 
-        $message = [
-            'name.required' => 'Name is required',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $message);
-
-        if($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $category = Category::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-        ]);
-
-        if($category) {
-            return redirect()->route('category.index')->with('success', 'Success create category');
-        } else{
-            return redirect()->back()->with('error', 'Failed to create category');
         }
     }
 
@@ -91,9 +101,12 @@ class CategoryController extends Controller
         $category->delete();
 
         if($category) {
-            return redirect()->route('category.index')->with('success', 'Success delete category');
+            Alert::success('Success', 'Success delete category');
+            return redirect()->route('category.index');
         } else{
-            return redirect()->back()->with('error', 'Failed to delete category');
+            Alert::error('Error', 'Failed to delete category');
+            return redirect()->route('category.index');
+            // return redirect()->back()->with('error', 'Failed to delete category');
         }
     }
 }
