@@ -3,18 +3,50 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\Usersimport;
 use App\Models\Groups;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = User::paginate(10);
-        return view('admin.user.index', compact('user'));
+
+        if(Gate::allows('isAdmin')){
+            if(request()->ajax())
+        {
+            // $data = User::latest()->get();
+            $data = User::
+            join('users_groups','users.id','=','users_groups.user_id')
+            ->select('users.*')
+            ->where('users_groups.groups_id','=',2)
+            ->get();
+            return datatables()->of($data)
+                    ->AddIndexColumn()
+                    ->addColumn('action', function($data){
+                        $edit = '<a href="'.route('user.edit', $data->id).'" class="btn btn-info btn-sm">Edit</a>';
+                        $delete = '<a href="javascript:void(0)" onClick="deleteData('.$data->id.')" class="btn btn-danger btn-sm">Delete</a>
+                        <form id="delete-form-'.$data->id.'" action="'.route('user.destroy', $data->id).'" method="POST" style="display: none;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            '.csrf_field().'
+                        </form>';
+                        return $edit.' '.$delete;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+        return view('admin.user.index');
+        } else {
+            return redirect('login');
+        }
+        // $user = User::paginate(10);
+        // return view('admin.user.index', compact('user'));
     }
 
     public function create()
@@ -27,6 +59,11 @@ class UserController extends Controller
     {
         $rules = [
             'name' => 'required',
+            'nis'   => 'required',
+            'agama' => 'required',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'no_hp' => 'required|max:13',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'password_confirmation' => 'required|same:password',
@@ -34,6 +71,11 @@ class UserController extends Controller
         
         $message = [
             'name.required' => 'Name is required',
+            'nis.required'   => 'Nis is required',
+            'agama.required' => 'Agama is required',
+            'jenis_kelamin.required' => 'Jenis kelamin is required',
+            'alamat.required' => 'Alamat is required',
+            'no_hp.required' => 'No handphone is required',
             'email.required' => 'Email is required',
             'email.email' => 'Email is invalid',
             'email.unique' => 'Email is already exists',
@@ -49,13 +91,20 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user = User::create([
+            'nis'   => $request->nis,
+            'alamat' => $request->alamat,
+            'agama' => $request->agama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'no_hp' => $request->no_hp,
             'name' => $request->name,
             'email' => $request->email,
+            'tahun' => $request->tahun,
+            'jurusan' => $request->jurusan,
             'password' => bcrypt($request->password),
             'remember_token' => Str::random(60),
         ]);
 
-        $user->role()->sync($request['groups_id']);
+        $user->role()->sync($request['group_id']);
 
         if($user) {
             return redirect()->route('user.index')->with('success', 'User has been created');
@@ -74,7 +123,13 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->name = $request->name;
+        $user->nis = $request->nis;
+        $user->jenis_kelamin = $request->jenis_kelamin;
+        $user->agama = $request->agama;
+        $user->alamat = $request->alamat;
         $user->email = $request->email;
+        $user->tahun = $request->tahun;
+        $user->jurusan = $request->jurusan;
         $user->save();
 
         $user->role()->sync($request['groups_id']);
@@ -116,5 +171,35 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect()->route('user.index')->with('success', 'User has been deleted');
+    }
+
+    public function import_excel(Request $request)
+    {  
+         $user = new User();
+        Excel::import(new Usersimport, $request->file('file')->store('files'),
+        $user->role()->sync($request['group_id'])
+    );
+       
+       
+       if($user) {
+        return redirect()->route('user.index')->with('success', 'User has been created');
+    } else{
+        return redirect()->back()->with('error', 'Failed to create user');
+    }
+        // return redirect()->back();
+        // dd($data);
+    }
+
+    public function alumni()
+    {
+        $user =  User::
+                        join('users_groups','users.id','=','users_groups.user_id')
+                        ->select('users.*')
+                        ->where('users_groups.groups_id','=',2)
+                        ->get();
+                    
+        // dd($alumni);
+        return view('admin.user.index', compact('user'));
+
     }
 }

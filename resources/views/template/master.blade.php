@@ -77,6 +77,7 @@
 
 		
 
+			@include('sweetalert::alert')
 
 			<!-- Footer opened -->
 			@include('template.admin.footer')

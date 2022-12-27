@@ -1,16 +1,17 @@
 @extends('template.master')
-@section('title', 'Users')
+@section('title', 'Pengumuman')
 @section('content')
 
 <!-- breadcrumb -->
 <div class="breadcrumb-header justify-content-between">
     <div class="left-content">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Data Users</h2>
+            <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Data Pengumuman</h2>
             {{-- <p class="mg-b-0">Sales monitoring dashboard template.</p> --}}
+          
         </div>
     </div>
-     <div class="center-content">
+    <div class="center-content">
         <div>
              @if(session('success'))
               <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -41,38 +42,22 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0"> <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm">  <i class="fas fa-plus"> Add Users</i> </a></h4>
-                       
+                        <h4 class="card-title mg-b-0"> <a href="{{ route('pengumuman.create') }}" class="btn btn-primary btn-sm">  <i class="fas fa-plus"> Add Pengumuman</i> </a></h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                     
                 </div>
                 <div class="card-body">
-                    <form action="{{route('import')}}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="exampleInputFile">File input</label>
-                                <input type="file" name="file" id="exampleInputFile">
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-success btn-md">Import</button>
-                        </div>
-                    </form>
                     <div class="table-responsive">
                         <table class="table mg-b-0 text-md-nowrap data-table">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
+                                    <th>Title</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                           
                             </tbody>
                         </table>
                     </div>
@@ -93,11 +78,10 @@
                 var table = $('.data-table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('user.index') }}",
+                    ajax: "{{ route('pengumuman.index') }}",
                     columns: [
                         {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                        {data: 'name', name: 'name'},
-                        {data: 'email', name: 'email'},
+                        {data: 'title', name: 'title'},
                         {data: 'action', name: 'action', class: 'text-center', 
                             orderable: true, searchable: true
                         },

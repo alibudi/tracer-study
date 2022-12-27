@@ -12,6 +12,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        
         $user = User::count();
         $role = Groups::count();
         $category = Category::count();
