@@ -103,10 +103,17 @@ class KuesionerController extends Controller
 
     public function user()
     {
-        Session::put('nextq', '1');
-        $question = Kuesioner::all()->first();
-        $user = Auth::user()->id;
-        return view('user.kuesioner.index', compact('question'));
+
+        if(Gate::allows('isUser')){
+            Session::put('nextq', '1');
+            $question = Kuesioner::all()->first();
+            $user = Auth::user()->id;
+            return view('user.kuesioner.index', compact('question'));
+        } else {
+            return redirect('login');
+        }
+
+       
         // dd($question,$user);
     }
 

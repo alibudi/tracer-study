@@ -28,7 +28,7 @@
 										
 										<div class="form-group">
 											<label for="">Nis</label>
-											<input type="text" class="form-control" name="nis" id="inputName" value="{{ $user->nis }}" placeholder="Name">
+											<input type="text" class="form-control" name="nis" id="inputName" value="{{ $user->nis }}" placeholder="Name" readonly>
 										</div>
 										<div class="form-group">
 											<label for="">Name</label>

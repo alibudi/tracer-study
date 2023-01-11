@@ -22,13 +22,13 @@
 								
 								</div>
 								<div class="card-body pt-0">
-									<form class="form-horizontal" method="POST" action="{{ route('user.update',$user->id) }}">
+									<form class="form-horizontal" method="POST" action="{{ route('update-user',$user->id) }}">
 										@csrf
                                         @method('PATCH')
 										
 										<div class="form-group">
 											<label for="">Nis</label>
-											<input type="text" class="form-control" name="nis" id="inputName" value="{{ $user->nis }}" placeholder="Name">
+											<input type="text" class="form-control" name="nis" id="inputName" value="{{ $user->nis }}" placeholder="Name" readonly>
 										</div>
 										<div class="form-group">
 											<label for="">Name</label>
@@ -68,6 +68,21 @@
 												<option value="Katolik" {{$user->agama == 'Katolik' ? 'selected' : ''}}>Katolik</option>
 											</select>
 										</div>
+
+										<div class="form-group">
+											<label for="">Jurusan</label>
+											<input type="text" name="jurusan" class="form-control" placeholder="Pekerjaan" value="{{$user->jurusan}}">
+										</div>
+
+										<div class="form-group">
+											<label for="">Tahun Kelulusan</label>
+											<input type="text" name="tahun" class="form-control" placeholder="Pekerjaan" value="{{$user->tahun}}">
+										</div>
+										<div class="form-group">
+											<label for="">Pekerjaan</label>
+											<input type="text" name="pekerjaan" class="form-control" placeholder="Pekerjaan" value="{{$user->pekerjaan}}">
+										</div>
+
 										 {{-- <div class="form-group">
 										<label>Pilih Role</label>
 										<select name="group_id" class="form-control">

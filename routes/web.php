@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EntriesController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,8 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::post('import', [UserController::class,'import_excel'])->name('import');
     Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
     Route::resource('user', UserController::class);
+    Route::patch('update-user/{id}', [UserController::class,'updateUser'])->name('update-user');
+    Route::get('update-user/{id}/edit', [UserController::class,'editUser'])->name('edit-user');
     Route::post('changepassword/{id}',[UserController::class,'changePassword'])->name('user.password');
     Route::resource('role', RoleController::class);
     Route::resource('category', CategoryController::class);
@@ -43,7 +46,7 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::get('/kuesioner-user',[KuesionerController::class,'user'])->name('kuesioner-user');
     Route::post('user-submit',[KuesionerController::class,'storeData'])->name('add');
     Route::resource('pengumuman', PengumumanController::class);
-    Route::get('pengumuman-user', [PengumumanController::class,'user_pengumuman'])->name('pengumuman-user');
+    Route::get('pengumuman-user', [HomeController::class,'index'])->name('pengumuman-user');
     Route::resource('laporan-alumni', LaporanController::class);
     Route::get('alumni',[UserController::class,'alumni'])->name('kelola-alumni');
 });

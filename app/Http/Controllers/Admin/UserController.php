@@ -120,6 +120,12 @@ class UserController extends Controller
         return view('admin.user.edit', compact('user'));
     }
 
+    public function editUser($id)
+    {
+        $user = User::find($id);
+        return view('user.profil.edit', compact('user'));
+    }
+
     public function update(Request $request, $id)
     {
         $user = User::find($id);
@@ -137,6 +143,26 @@ class UserController extends Controller
         $user->role()->sync($request['groups_id']);
 
         return redirect()->route('user.index')->with('success', 'User has been updated');
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->nis = $request->nis;
+        $user->jenis_kelamin = $request->jenis_kelamin;
+        $user->agama = $request->agama;
+        $user->alamat = $request->alamat;
+        $user->email = $request->email;
+        $user->tahun = $request->tahun;
+        $user->jurusan = $request->jurusan;
+        $user->pekerjaan = $request->pekerjaan;
+        $user->save();
+
+        // $user->role()->sync($request['groups_id']);
+        // return redirect()-back();
+        return redirect()->back()->with('success', 'Success update user');
+        // return redirect()->route('admin.user.edit')->with('success', 'User has been updated');
     }
 
     public function changePassword(Request $request, $id)
