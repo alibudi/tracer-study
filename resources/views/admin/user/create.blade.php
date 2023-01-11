@@ -62,6 +62,11 @@
 										</div>
 
 										<div class="form-group">
+											<label for="">Pekerjaan</label>
+											<input type="text" name="pekerjaan" class="form-control" placeholder="Pekerjaan">
+										</div>
+
+										<div class="form-group">
 											<label>Jenis Kelamin</label>
 											<select name="jenis_kelamin" class="form-control">
 												<option value="Laki-laki">Laki-Laki</option>
@@ -78,8 +83,6 @@
 											<label for="">Jurusan</label>
 											<input type="text" name="jurusan" class="form-control" id="inputEmail3" placeholder="jurusan">
 										</div>
-
-
 
 										<div class="form-group">
 											<label>Agama</label>

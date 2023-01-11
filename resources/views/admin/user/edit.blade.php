@@ -51,6 +51,22 @@
 										</div>
 
 										<div class="form-group">
+											<label for="">Pekerjaan</label>
+											<input type="text" name="pekerjaan" class="form-control" placeholder="Pekerjaan" value="{{$user->pekerjaan}}">
+										</div>
+
+										<div class="form-group">
+											<label for="">Jurusan</label>
+											<input type="text" name="jurusan" class="form-control" placeholder="Pekerjaan" value="{{$user->jurusan}}">
+										</div>
+
+										<div class="form-group">
+											<label for="">Tahun Kelulusan</label>
+											<input type="text" name="tahun" class="form-control" placeholder="Pekerjaan" value="{{$user->tahun}}">
+										</div>
+
+
+										<div class="form-group">
 											<label>Jenis Kelamin</label>
 											<select name="jenis_kelamin" class="form-control">
 												<option value="Laki-laki" {{$user->jenis_kelamin == 'Laki-laki' ? 'selected' : ''}}>Laki-Laki</option>

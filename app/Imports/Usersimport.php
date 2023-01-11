@@ -19,8 +19,9 @@ class Usersimport implements ToCollection, WithHeadingRow
 
     public function collection(Collection $collection)
     {
+        $user = new User;
         foreach($collection as $index => $data){
-            User::create([
+          $user =  User::create([
                 'name' => $data['name'],
                 'nis' => $data['nis'],
                 'alamat' => $data['alamat'],
@@ -29,12 +30,11 @@ class Usersimport implements ToCollection, WithHeadingRow
                 'no_hp' => $data['no_hp'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
-                'jurusan' => $data['jurusan'],
+                 'jurusan' => $data['jurusan'],
                 'tahun' => $data['tahun'],
-                
-               
-                
+                'pekerjaan' => $data['pekerjaan']
             ]);
+            $user->role()->sync(2);
         }
     }
 

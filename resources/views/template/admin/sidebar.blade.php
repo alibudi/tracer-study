@@ -4,7 +4,7 @@
 					<a class="desktop-logo logo-dark active" href="index.html"><img src="{{ asset('admin/img/brand/logo-white.png')}}" class="main-logo dark-theme" alt="logo"></a>
 					<a class="logo-icon mobile-logo icon-light active" href="index.html"><img src="{{ asset('admin/img/brand/favicon.png')}}" class="logo-icon" alt="logo"></a>
 					<a class="logo-icon mobile-logo icon-dark active" href="index.html"><img src="{{ asset('admin/img/brand/favicon-white.png')}}" class="logo-icon dark-theme" alt="logo"></a> --}}
-					<h3 style="color: white">Tracer Study</h3>
+					<h3 style="color: white">Tracer Alumni</h3>
 				</div>
 				<div class="main-sidemenu">
 					<div class="app-sidebar__user clearfix">

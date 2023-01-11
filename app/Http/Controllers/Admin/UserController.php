@@ -100,6 +100,7 @@ class UserController extends Controller
             'email' => $request->email,
             'tahun' => $request->tahun,
             'jurusan' => $request->jurusan,
+            'pekerjaan' => $request->pekerjaan,
             'password' => bcrypt($request->password),
             'remember_token' => Str::random(60),
         ]);
@@ -130,6 +131,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->tahun = $request->tahun;
         $user->jurusan = $request->jurusan;
+        $user->pekerjaan = $request->pekerjaan;
         $user->save();
 
         $user->role()->sync($request['groups_id']);
@@ -175,18 +177,17 @@ class UserController extends Controller
 
     public function import_excel(Request $request)
     {  
-         $user = new User();
-        Excel::import(new Usersimport, $request->file('file')->store('files'),
-        $user->role()->sync($request['group_id'])
-    );
+        //  $user = new User();
+         $data =  Excel::import(new Usersimport, $request->file('file')->store('files'));
+    //     $user->role()->sync($request['group_id']));
        
        
-       if($user) {
-        return redirect()->route('user.index')->with('success', 'User has been created');
-    } else{
-        return redirect()->back()->with('error', 'Failed to create user');
-    }
-        // return redirect()->back();
+    //    if($user) {
+    //     return redirect()->route('user.index')->with('success', 'User has been created');
+    // } else{
+    //     return redirect()->back()->with('error', 'Failed to create user');
+    // }
+        return redirect()->back();
         // dd($data);
     }
 

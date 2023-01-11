@@ -27,7 +27,8 @@ class User extends Authenticatable
         'agama',
         'no_hp',
         'tahun',
-        'jurusan'
+        'jurusan',
+        'pekerjaan'
     ];
 
     /**

@@ -117,8 +117,14 @@ class PengumumanController extends Controller
 
     public function user_pengumuman()
     {
-        $pengumuman = Pengumuman::all();
-        return view('user.pengumuman.index ', compact('pengumuman'));
+       
+
+        if(Gate::allows('isUser')){
+            $pengumuman = Pengumuman::all();
+            return view('user.pengumuman.index ', compact('pengumuman'));
+        } else {
+            return redirect('login');
+        }
     }
     
 }

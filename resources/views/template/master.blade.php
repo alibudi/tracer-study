@@ -4,9 +4,9 @@
 		<meta charset="UTF-8">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="Description" content="Starter Laravel sederhana">
-		<meta name="Author" content="Alibudi">
-		<meta name="Keywords" content="Starter Laravel"/>
+		<meta name="Description" content="Tracer alumni">
+		<meta name="Author" content="PHB">
+		<meta name="Keywords" content="Tracer alumni"/>
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<!-- Title -->
 		<title> @yield('title') </title>

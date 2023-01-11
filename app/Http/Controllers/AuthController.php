@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function actionLogin(Request $request)
     {
         $data = [
-            'email' => $request->input('email'),
+            'nis' => $request->input('nis'),
             'password' => $request->input('password')
         ];
         if(Auth::attempt($data)){
